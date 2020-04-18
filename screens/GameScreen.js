@@ -21,14 +21,22 @@ const GameScreen = (props) => {
     getRandomBetween(1, 100, props.userChoice)
   );
 
+  const onHigherHandler = () => {
+    min = guess;
+  };
+
+  const onLowerHandler = () => {
+
+  };
+
+    //<Header title="Game on!" />
   return (
     <View style={styles.screen}>
-      <Header title="Game on!" />
       <Text>Computer's guess:</Text>
       <NumberContainer>{guess}</NumberContainer>
       <Card style={styles.buttonContainer}>
-        <Button title="LOWER" onpress={() => {}} />
-        <Button title="HIGHER" onpress={() => {}} />
+        <Button title="LOWER" onpress={() => {onHigherHandler}} />
+        <Button title="HIGHER" onpress={() => {onLowerHandler}} />
       </Card>
     </View>
   );
