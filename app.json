@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "guess_a_number",
-    "slug": "Guess A Number",
+    "name": "Guess A Number",
+    "slug": "guess_a_number",
     "platforms": [
       "ios",
       "android",

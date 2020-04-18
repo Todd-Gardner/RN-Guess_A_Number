@@ -11,17 +11,21 @@ export default function App() {
   const startGameHandler = (selectedNumber) => {
     setUserNumber(selectedNumber);
   };
-
-  let content = <StartGameScreen onStartGame={startGameHandler}/>;
+/* - Changed this to terniary expression below - 
+  let content = <StartGameScreen onStartGame={startGameHandler} />;
 
   if (userNumber) {
-    content = <Gamescreen userChoice={userNumber}/>;
-  }
+    content = <Gamescreen userChoice={userNumber} />;
+  } */
 
   return (
     <View style={styles.screen}>
       <Header title="Guess a Number" />
-      {content}
+      {userNumber ? 
+        <Gamescreen userChoice={userNumber} />
+       : 
+        <StartGameScreen onStartGame={startGameHandler} />
+      }
     </View>
   );
 }

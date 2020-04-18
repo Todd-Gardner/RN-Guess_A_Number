@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import React, { useState, useRef } from "react";
+import { View, Text, StyleSheet, Button, Alert } from "react-native";
 
 import Header from "../components/Header";
 import NumberContainer from "../components/NumberContainer";
@@ -20,24 +20,57 @@ const GameScreen = (props) => {
   const [guess, setGuess] = useState(
     getRandomBetween(1, 100, props.userChoice)
   );
+  const currentLow = useRef(1);
+  const currentHigh = useRef(100);
 
-  const onHigherHandler = () => {
-    min = guess;
+  let winner;
+
+  if (guess === props.userChoice) {
+    console.log("you got it!");
+    winner = (
+      <View>
+        <Text>You got it! the number was {guess} congrats!</Text>
+        <Button title="Play again?" />
+      </View>
+    );
+  }
+
+  const nextGuessHandler = (direction) => {
+    if (
+      (direction === "lower" && guess < props.userChoice) ||
+      (direction === "higher" && guess > props.userChoice)
+    ) {
+      Alert.alert("Hey!!", "You know that isn't the right hint...", [
+        { text: "busted!", style: "cancel" },
+      ]);
+      return;
+    }
+    if (direction === "lower") {
+      currentHigh.current = guess;
+    } else {
+      currentLow.current = guess;
+    }
+    const nextNumber = getRandomBetween(
+      currentLow.current,
+      currentHigh.current,
+      guess
+    );
+    setGuess(nextNumber);
   };
 
-  const onLowerHandler = () => {
-
-  };
-
-    //<Header title="Game on!" />
+  //<Header title="Game on!" />
   return (
     <View style={styles.screen}>
       <Text>Computer's guess:</Text>
       <NumberContainer>{guess}</NumberContainer>
       <Card style={styles.buttonContainer}>
-        <Button title="LOWER" onpress={() => {onHigherHandler}} />
-        <Button title="HIGHER" onpress={() => {onLowerHandler}} />
+        <Button title="LOWER" onPress={nextGuessHandler.bind(this, "lower")} />
+        <Button
+          title="HIGHER"
+          onPress={nextGuessHandler.bind(this, "higher")}
+        />
       </Card>
+      {winner}
     </View>
   );
 };
@@ -50,7 +83,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: "row",
-    justifyContent: "space-around",//between
+    justifyContent: "space-around", //between
     marginTop: 20,
     width: 300,
     maxWidth: "80%",
