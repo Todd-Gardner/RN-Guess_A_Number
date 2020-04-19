@@ -22,7 +22,7 @@ export default function App() {
     <View style={styles.screen}>
       <Header title="Guess a Number" />
       {userNumber ? 
-        <Gamescreen userChoice={userNumber} />
+        <Gamescreen userChoice={userNumber} onPlayAgain={startGameHandler}/>
        : 
         <StartGameScreen onStartGame={startGameHandler} />
       }

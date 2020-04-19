@@ -22,16 +22,18 @@ const GameScreen = (props) => {
   );
   const currentLow = useRef(1);
   const currentHigh = useRef(100);
+  const guessCount = useRef(1);
 
   let winner;
 
   if (guess === props.userChoice) {
     console.log("you got it!");
     winner = (
-      <View>
-        <Text>You got it! the number was {guess} congrats!</Text>
-        <Button title="Play again?" />
-      </View>
+      <Card>
+        <Text>You got it! The number was {guess} - Congrats!</Text>
+        <Text>It took {guessCount.current} guesses</Text>
+        <Button title="Play again?" onPress={() => props.onPlayAgain(null)} />
+      </Card>
     );
   }
 
@@ -56,6 +58,7 @@ const GameScreen = (props) => {
       guess
     );
     setGuess(nextNumber);
+    guessCount.current++;
   };
 
   //<Header title="Game on!" />
@@ -64,7 +67,7 @@ const GameScreen = (props) => {
       <Text>Computer's guess:</Text>
       <NumberContainer>{guess}</NumberContainer>
       <Card style={styles.buttonContainer}>
-        <Button title="LOWER" onPress={nextGuessHandler.bind(this, "lower")} />
+        <Button title="LOWER" onPress={() => {nextGuessHandler("lower")}} />
         <Button
           title="HIGHER"
           onPress={nextGuessHandler.bind(this, "higher")}
