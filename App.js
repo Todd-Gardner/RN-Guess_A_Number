@@ -4,28 +4,44 @@ import { StyleSheet, View } from "react-native";
 import Header from "./components/Header";
 import StartGameScreen from "./screens/StartGameScreen";
 import Gamescreen from "./screens/GameScreen";
+import WinnerScreen from './screens/WinnerScreen';
 
 export default function App() {
   const [userNumber, setUserNumber] = useState();
+  const [guessCount, setGuessCount] = useState(0);
+
+  const newGameHandler = () => {
+    setUserNumber(null);
+    setGuessCount(0);
+  };
 
   const startGameHandler = (selectedNumber) => {
     setUserNumber(selectedNumber);
+    setGuessCount(0); //
   };
-/* - Changed this to terniary expression below - 
+
+  const gameOverHandler = (guessCount) => {
+    setGuessCount(guessCount);
+  };
+  
+// - Changed this to terniary expression below - 
   let content = <StartGameScreen onStartGame={startGameHandler} />;
 
-  if (userNumber) {
-    content = <Gamescreen userChoice={userNumber} />;
-  } */
-
+  if (userNumber && guessCount <= 0) {
+    content = <Gamescreen userChoice={userNumber} onGameOver={gameOverHandler} />;
+  } else if (guessCount > 0) {
+    content = <WinnerScreen userNumber={userNumber} guessCount={guessCount} onRestart={newGameHandler} />;
+  }
+ 
   return (
     <View style={styles.screen}>
       <Header title="Guess a Number" />
-      {userNumber ? 
+      {/* {userNumber ? 
         <Gamescreen userChoice={userNumber} onPlayAgain={startGameHandler}/>
        : 
         <StartGameScreen onStartGame={startGameHandler} />
-      }
+      } */}
+      {content}
     </View>
   );
 }
