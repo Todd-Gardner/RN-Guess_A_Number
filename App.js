@@ -4,7 +4,7 @@ import { StyleSheet, View } from "react-native";
 import Header from "./components/Header";
 import StartGameScreen from "./screens/StartGameScreen";
 import Gamescreen from "./screens/GameScreen";
-import WinnerScreen from './screens/WinnerScreen';
+import WinnerScreen from "./screens/WinnerScreen";
 
 export default function App() {
   const [userNumber, setUserNumber] = useState();
@@ -17,22 +17,29 @@ export default function App() {
 
   const startGameHandler = (selectedNumber) => {
     setUserNumber(selectedNumber);
-    setGuessCount(0); //
   };
 
   const gameOverHandler = (guessCount) => {
     setGuessCount(guessCount);
   };
-  
-// - Changed this to terniary expression below - 
+
+  // - Had this as terniary expression below(until third argument) -
   let content = <StartGameScreen onStartGame={startGameHandler} />;
 
   if (userNumber && guessCount <= 0) {
-    content = <Gamescreen userChoice={userNumber} onGameOver={gameOverHandler} />;
+    content = (
+      <Gamescreen userChoice={userNumber} onGameOver={gameOverHandler} />
+    );
   } else if (guessCount > 0) {
-    content = <WinnerScreen userNumber={userNumber} guessCount={guessCount} onRestart={newGameHandler} />;
+    content = (
+      <WinnerScreen
+        userNumber={userNumber}
+        guessCount={guessCount}
+        onRestart={newGameHandler}
+      />
+    );
   }
- 
+
   return (
     <View style={styles.screen}>
       <Header title="Guess a Number" />
