@@ -47,7 +47,7 @@ const StartGameScreen = (props) => {
   };
 
   let confirmedOutput;
-
+  //if entered number is ok, show on screen
   if (confirmed) {
     confirmedOutput = (
       <Card style={styles.summaryContainer}>
@@ -66,7 +66,7 @@ const StartGameScreen = (props) => {
   return (
     <TouchableWithoutFeedback
       onPress={() => {
-        Keyboard.dismiss();
+        Keyboard.dismiss(); //hide keyboard if tapped outside of it
       }}
     >
       <View style={styles.screen}>

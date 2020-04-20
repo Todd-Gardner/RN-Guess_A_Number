@@ -4,12 +4,11 @@ import {
   Text,
   Button,
   StyleSheet,
-  Image,
   ImageBackground,
 } from "react-native";
 import Card from "../components/Card";
 import Colors from "../constants/colors";
-//import fireworks from '../assets/fireworks.gif'
+
 const fireworks = require("../assets/fireworks.gif");
 
 const WinnerScreen = (props) => {

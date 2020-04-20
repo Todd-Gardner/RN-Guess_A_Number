@@ -5,6 +5,8 @@ const Input = (props) => {
   return <TextInput {...props} style={{ ...styles.input, ...props.style }} />;
 };
 
+// unpacks styles.input, adds/saves to props.style and sends via props
+
 const styles = StyleSheet.create({
   input: {
     height: 30,

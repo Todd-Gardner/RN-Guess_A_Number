@@ -1,11 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import { View, Text, StyleSheet, Button, Alert } from "react-native";
 
-import Header from "../components/Header";
 import NumberContainer from "../components/NumberContainer";
-
 import Card from "../components/Card";
-import WinnerScreen from "./WinnerScreen";
+import WinnerScreen from "./WinnerScreen"; // used to display at the same time
 
 const getRandomBetween = (min, max, exclude) => {
   min = Math.ceil(min);
@@ -14,7 +12,7 @@ const getRandomBetween = (min, max, exclude) => {
   if (randNum === exclude) {
     return getRandomBetween(min, max, exclude); //recursion
   } else {
-    return randNum; // need else?
+    return randNum; //don't need else
   }
 };
 
@@ -22,7 +20,7 @@ const GameScreen = (props) => {
   const [guess, setGuess] = useState(
     getRandomBetween(1, 100, props.userChoice)
   );
-  const [guessCount, setGuessCount] = useState(1); //useRef(1) ?
+  const [guessCount, setGuessCount] = useState(1); // or useRef(1) ?
   const currentLow = useRef(1);
   const currentHigh = useRef(100);
 
@@ -30,11 +28,9 @@ const GameScreen = (props) => {
 
   useEffect(() => {
     if (guess === userChoice) {
-      console.log("you got it!");
-     onGameOver(guessCount);
+      onGameOver(guessCount);
     }
   }, [guess, userChoice, onGameOver]);
-
 
   const nextGuessHandler = (direction) => {
     if (
@@ -57,10 +53,10 @@ const GameScreen = (props) => {
       guess
     );
     setGuess(nextNumber);
-    setGuessCount(guessCount => guessCount + 1);
+    setGuessCount((guessCount) => guessCount + 1);
   };
 
-  //<Header title="Game on!" />
+  //Maybe change header title to 'Game on!'
   return (
     <View style={styles.screen}>
       <Text>Computer's guess:</Text>
@@ -89,7 +85,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: "row",
-    justifyContent: "space-between", //between
+    justifyContent: "space-between", //around
     marginTop: 20,
     width: 300,
     maxWidth: "80%",
