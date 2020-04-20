@@ -23,13 +23,15 @@ export default function App() {
     setGuessCount(guessCount);
   };
 
-  // - Had this as terniary expression below(until third argument) -
+  // - Had this as terniary expression below (until third argument) -
   let content = <StartGameScreen onStartGame={startGameHandler} />;
-
+  
+  // if there is a userNumber & have guesses - the game has started
   if (userNumber && guessCount <= 0) {
     content = (
       <Gamescreen userChoice={userNumber} onGameOver={gameOverHandler} />
     );
+  // or could have done (guess === userChoice)
   } else if (guessCount > 0) {
     content = (
       <WinnerScreen
@@ -51,7 +53,7 @@ export default function App() {
       {content}
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   screen: {
