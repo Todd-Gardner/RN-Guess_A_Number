@@ -96,6 +96,7 @@ const StartGameScreen = (props) => {
                 color={Colors.primary}
                 title="Confirm"
                 onPress={confirmInputHandler}
+                disabled={!enteredValue}
               />
             </View>
           </View>
